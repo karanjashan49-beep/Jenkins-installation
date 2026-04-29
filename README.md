@@ -136,11 +136,85 @@ Avoid this:
 
 - All traffic -> `0.0.0.0/0`
 
-## Optional next step
+## Connect Jenkins to GitHub
+
+### Create a pipeline job
+
+1. In Jenkins, click **New Item**
+2. Enter a name like `jenkins-installation-pipeline`
+3. Select **Pipeline**
+4. Click **OK**
+
+### Point Jenkins to your GitHub repo
+
+In the pipeline job configuration:
+
+- Under **Pipeline**, choose **Pipeline script from SCM**
+- SCM: **Git**
+- Repository URL:
+
+```text
+https://github.com/karanjashan49-beep/Jenkins-installation.git
+```
+
+- Branch specifier:
+
+```text
+*/main
+```
+
+- Script path:
+
+```text
+Jenkinsfile
+```
+
+Then click **Save**.
+
+### Run the pipeline
+
+- Open the pipeline job
+- Click **Build Now**
+- Open **Console Output** to see each stage
+
+## GitHub webhook setup
+
+To trigger Jenkins automatically when code is pushed:
+
+### In Jenkins job
+
+1. Open the job
+2. Click **Configure**
+3. Under **Build Triggers**, enable:
+   - **GitHub hook trigger for GITScm polling**
+4. Save
+
+### In GitHub repo
+
+1. Open the repo:
+   `https://github.com/karanjashan49-beep/Jenkins-installation`
+2. Go to **Settings** -> **Webhooks** -> **Add webhook**
+3. Payload URL:
+
+```text
+http://YOUR_EC2_PUBLIC_IP:8080/github-webhook/
+```
+
+4. Content type:
+
+```text
+application/json
+```
+
+5. Choose:
+   - **Just the push event**
+6. Click **Add webhook**
+
+## Optional next steps
 
 After Jenkins works, you can connect:
 
-- GitHub repository
-- Webhooks
-- Jenkinsfile pipeline
-- Deployment steps
+- your real GitHub project repo
+- webhooks for auto-builds
+- a better Jenkinsfile for your app
+- deployment steps to EC2 or another server
