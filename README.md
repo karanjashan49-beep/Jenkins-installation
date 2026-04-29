@@ -1,10 +1,10 @@
 # Jenkins Installation
 
-This repo contains simple commands to install and configure Jenkins on an AWS EC2 Ubuntu machine.
+This repo contains simple commands to install and configure Jenkins on an AWS EC2 Amazon Linux machine.
 
 ## EC2 setup assumptions
 
-- Ubuntu-based EC2 instance
+- Amazon Linux EC2 instance
 - Port `22` open for SSH from your IP
 - Port `8080` open for Jenkins from your IP
 - Java 17 installed or installed during setup
@@ -12,27 +12,23 @@ This repo contains simple commands to install and configure Jenkins on an AWS EC
 ## Connect to EC2
 
 ```bash
-ssh -i key.pem ubuntu@YOUR_EC2_PUBLIC_IP
+ssh -i key.pem ec2-user@YOUR_EC2_PUBLIC_IP
 ```
 
-If your username is different, replace `ubuntu` with the correct user.
+If your username is different, replace `ec2-user` with the correct user.
 
-## Install Jenkins on Ubuntu
+## Install Jenkins on Amazon Linux
 
 ```bash
-sudo apt update
-sudo apt install -y fontconfig openjdk-17-jre
+sudo dnf update -y
+sudo dnf install -y fontconfig java-17-amazon-corretto curl
 java -version
 
-curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
-  /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+sudo wget -O /etc/yum.repos.d/jenkins.repo \
+  https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
 
-echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
-  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
-  /etc/apt/sources.list.d/jenkins.list > /dev/null
-
-sudo apt update
-sudo apt install -y jenkins
+sudo dnf install -y jenkins
 ```
 
 ## Start and enable Jenkins
