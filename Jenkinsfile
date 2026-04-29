@@ -4,14 +4,12 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        echo 'Checking out source code'
         checkout scm
       }
     }
 
     stage('Build') {
       steps {
-        echo 'Running sample build steps'
         sh 'echo Build started'
         sh 'pwd'
         sh 'ls -la'
@@ -20,8 +18,7 @@ pipeline {
 
     stage('Test') {
       steps {
-        echo 'Running sample tests'
-        sh 'echo No tests configured yet'
+        sh 'echo No tests configured'
       }
     }
   }
@@ -29,12 +26,6 @@ pipeline {
   post {
     always {
       echo 'Pipeline finished'
-    }
-    success {
-      echo 'Build succeeded'
-    }
-    failure {
-      echo 'Build failed'
     }
   }
 }

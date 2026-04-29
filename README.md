@@ -85,7 +85,7 @@ If Jenkins says **Waiting for next available executor**:
 6. Add:
 
 ```bash
-echo "Jenkins is working"
+echo "Build started"
 date
 whoami
 pwd
@@ -137,7 +137,7 @@ Avoid this:
 ### Create a pipeline job
 
 1. In Jenkins, click **New Item**
-2. Enter a name like `jenkins-installation-pipeline`
+2. Enter a pipeline job name
 3. Select **Pipeline**
 4. Click **OK**
 
@@ -165,7 +165,7 @@ https://github.com/karanjashan49-beep/Jenkins-installation.git
 Jenkinsfile
 ```
 
-Then click **Save**.
+Click **Save**.
 
 ### Run the pipeline
 
@@ -206,11 +206,11 @@ application/json
    - **Just the push event**
 6. Click **Add webhook**
 
-## Optional next steps
+## Next steps
 
-After Jenkins works, you can connect:
+Possible follow-up work:
 
-- your real GitHub project repo
-- webhooks for auto-builds
-- a better Jenkinsfile for your app
-- deployment steps to EC2 or another server
+- connect a project repository
+- enable webhook-based builds
+- customize the Jenkinsfile
+- add deployment stages
